@@ -1,0 +1,93 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$axxes-app-primary: mat-palette($mat-gray);
+$axxes-app-accent:  mat-palette($mat-orange, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$axxes-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$axxes-app-theme: mat-light-theme($axxes-app-primary, $axxes-app-accent, $axxes-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($axxes-app-theme);
+
+
+// pallette colors
+
+$mat-gray: (
+    50 : #eaeaea,
+    100 : #cbcbcb,
+    200 : #a8a8a8,
+    300 : #858585,
+    400 : #6b6b6b,
+    500 : #515151,
+    600 : #4a4a4a,
+    700 : #404040,
+    800 : #373737,
+    900 : #272727,
+    A100 : #f18585,
+    A200 : #ec5757,
+    A400 : #ff1111,
+    A700 : #f60000,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$mat-orange: (
+    50 : #fff5e0,
+    100 : #ffe7b3,
+    200 : #ffd780,
+    300 : #ffc64d,
+    400 : #ffba26,
+    500 : #ffae00,
+    600 : #ffa700,
+    700 : #ff9d00,
+    800 : #ff9400,
+    900 : #ff8400,
+    A100 : #ffffff,
+    A200 : #fff8f2,
+    A400 : #ffddbf,
+    A700 : #ffcfa6,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);

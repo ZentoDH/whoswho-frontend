@@ -1,0 +1,11 @@
+.question{
+    width:100vw;
+}
+
+.question p{
+    text-align: center;
+}
+
+.name{
+    font-weight: bold;
+}
