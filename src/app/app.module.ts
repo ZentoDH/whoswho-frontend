@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import {MatButtonModule, MatToolbarModule, MatMenuModule, MatIconModule, MatGridListModule} from '@angular/material';
 import { GameComponent } from './game/game.component';
 import { TopscoresComponent } from './topscores/topscores.component';
+import {MsalModule} from '@azure/msal-angular';
 
 
 @NgModule({
@@ -25,7 +26,10 @@ import { TopscoresComponent } from './topscores/topscores.component';
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
-    MatGridListModule
+    MatGridListModule,
+    MsalModule.forRoot({
+        clientID: 'f993cf0d-9e6d-44b1-80f3-cf760d018618'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
