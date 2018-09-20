@@ -9,6 +9,7 @@ import {MatButtonModule, MatToolbarModule, MatMenuModule, MatIconModule, MatGrid
 import {GameComponent} from './game/game.component';
 import {TopscoresComponent} from './topscores/topscores.component';
 import {MsalModule} from '@azure/msal-angular';
+import { HttpClientModule } from '@angular/common/http'; 
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {MsalModule} from '@azure/msal-angular';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        HttpClientModule,
         MatButtonModule,
         MatToolbarModule,
         MatIconModule,
