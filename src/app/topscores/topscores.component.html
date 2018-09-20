@@ -1,2 +1,30 @@
-<h1>TOPSCORES [MAAND]/[JAAR]</h1>
+<h1>TOPSCORES {{date | date:'MM/yyy'}}</h1>
 
+<mat-grid-list cols="1">
+    <mat-grid-tile>
+        <div id="topscores">
+            <table>
+                <tr *ngFor="let topscore of topScores">
+                    <td>0001.</td>
+                    <ng-container
+                            *ngIf="topscore.personId === id; then currentPlayer; else notCurrentPlayer">
+                    </ng-container>
+                    <ng-template #currentPlayer>
+                            <td  class="currentPlayer">{{ topscore.firstName }} {{ topscore.lastName }}</td>
+                            <td  class="currentPlayer">{{ topscore.score }}/20</td>
+                            <td  class="currentPlayer">({{ topscore.playTimeInMillis }})</td>
+                            <td  class="currentPlayer">x{{ topscore.amountPlayed }}</td>
+                    </ng-template>
+                    <ng-template #notCurrentPlayer>
+                            <td>{{ topscore.firstName }} {{ topscore.lastName }}</td>
+                            <td>{{ topscore.score }}/20</td>
+                            <td>({{ topscore.playTimeInMillis }})</td>
+                            <td>x{{ topscore.amountPlayed }}</td>
+                    </ng-template>
+                </tr>
+            </table>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<button>PLAY AGAIN</button>
