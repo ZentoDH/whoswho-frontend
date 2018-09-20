@@ -9,6 +9,7 @@ import {MatButtonModule, MatToolbarModule, MatMenuModule, MatIconModule, MatGrid
 import {GameComponent} from './game/game.component';
 import {TopscoresComponent} from './topscores/topscores.component';
 import {MsalModule} from '@azure/msal-angular';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {MsalModule} from '@azure/msal-angular';
         MatIconModule,
         MatMenuModule,
         MatGridListModule,
+        HttpClientModule,
         MsalModule.forRoot({
             clientID: 'f993cf0d-9e6d-44b1-80f3-cf760d018618',
             authority: 'https://login.microsoftonline.com/common/',
