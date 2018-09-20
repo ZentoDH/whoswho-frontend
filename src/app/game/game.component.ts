@@ -4,7 +4,6 @@ import {Game} from '../models/game.model';
 import {MsalService} from '@azure/msal-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ResponseContentType} from '@angular/http';
-import {Observable, Subscriber} from 'rxjs';
 
 @Component({
     selector: 'app-game',
@@ -39,6 +38,21 @@ export class GameComponent implements OnInit {
         this.roundCount++;
     }
 
+    toDataURL(url, token, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            let reader = new FileReader();
+            reader.onloadend = function() {
+                callback(reader.result);
+            }
+            reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.setRequestHeader('Authorization', token);
+        xhr.responseType = 'blob';
+        xhr.send();
+    }
+
     getImage(userId: string) {
         let token: any;
         this.msalService.acquireTokenSilent(['user.read']).then(t => {
@@ -52,22 +66,15 @@ export class GameComponent implements OnInit {
                     'Authorization': 'Bearer ' + token,
                     'ResponseType': 'blob'
                 }),
+                responseType: 'blob' as 'blob'
             };
 
-            let objectUrl: string = null;
-            let observer;
+            this.toDataURL(url, 'Bearer ' + token, (result) => {
+                const img = new Image(1, 1); // width, height values are optional params
+                img.src = result;
 
-
-           const image = this.http
-                .get(url, headers)
-                .subscribe(m => {
-                objectUrl = URL.createObjectURL(m);
-                observer.next(objectUrl);
+                document.getElementById('mybody').appendChild(img);
             });
-
-
-            console.log(image);
-            //image.subscribe(res => console.log('test image: ', res));
         });
     }
 }
