@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import {MatButtonModule, MatToolbarModule, MatMenuModule, MatIconModule, MatGridListModule} from '@angular/material';
 import { GameComponent } from './game/game.component';
 import { TopscoresComponent } from './topscores/topscores.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { TopscoresComponent } from './topscores/topscores.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
