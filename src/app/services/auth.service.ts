@@ -2,26 +2,32 @@ import {Injectable} from '@angular/core';
 import {Player} from '../models/player.model';
 import {MsalService} from '@azure/msal-angular';
 import * as jwt_decode from 'jwt-decode';
+import {DataService} from './data.service';
 
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    private _token: string;
-    private _currentPlayer: Player;
+    private token: any;
+    private currentPlayer: Player;
 
-    constructor(private msalService: MsalService) {
+    constructor(private msalService: MsalService, private globalData:DataService) {
+    }
+
+    setCurrentUser(){
         this.msalService.acquireTokenSilent(['user.read']).then(t => {
-                this._token = t;
+                this.token = t;
 
-                let tokenInfo = AuthService.getDecodedAccessToken(this._token);
+                let tokenInfo = AuthService.getDecodedAccessToken(this.token);
 
-                this._currentPlayer = new Player();
-                this._currentPlayer.id = tokenInfo.oid;
-                this._currentPlayer.displayName = tokenInfo.name;
-                this._currentPlayer.givenName = tokenInfo.given_name;
-                this._currentPlayer.surName = tokenInfo.family_name;
+                this.currentPlayer = new Player("", "", "", "", "");
+                this.currentPlayer.id = tokenInfo.oid;
+                this.currentPlayer.displayName = tokenInfo.name;
+                this.currentPlayer.givenName = tokenInfo.given_name;
+                this.currentPlayer.surName = tokenInfo.family_name;
+
+                this.globalData.currentUser.next(this.currentPlayer);
             },
             e => {
                 console.log(e);
@@ -36,12 +42,8 @@ export class AuthService {
             return null;
         }
     }
-
-    get token(): string {
-        return this._token;
-    }
-
-    get currentPlayer(): Player {
-        return this._currentPlayer;
+    
+    logout() {
+        this.msalService.logout();
     }
 }

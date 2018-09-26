@@ -19,11 +19,13 @@ export class TopscoresComponent implements OnInit {
     player: Player;
     loading = false;
 
-    constructor(private topScoreService: TopScoresService, private authService: AuthService, private router: Router, private gameService: GameService, private data: DataService) {
+    constructor(private topScoreService: TopScoresService, private authService: AuthService, private router: Router, private gameService: GameService, private globalData: DataService) {
     }
 
     ngOnInit() {
-        this.player = this.authService.currentPlayer;
+        this.globalData.currentUser.subscribe(p => {
+            return this.player = p;
+        });
 
         this.topScoreService.getTopScores().subscribe(
             res => {
@@ -35,7 +37,7 @@ export class TopscoresComponent implements OnInit {
         this.gameService.startGame(this.player).subscribe(
             (res: Game) => {
                 console.log('startgame SUCCESS', res);
-                this.data.game = res;
+                this.globalData.game = res;
                 this.loading = true;
                 this.router.navigate(['/game']);
             },
