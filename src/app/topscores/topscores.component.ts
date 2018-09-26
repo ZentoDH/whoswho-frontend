@@ -6,7 +6,7 @@ import {Game} from '../models/game.model';
 import {GameService} from '../services/game.service';
 import {DataService} from '../services/data.service';
 import {AuthService} from '../services/auth.service';
-import {MsalService} from '@azure/msal-angular';
+import {ConvertDurationPipe} from './convertDurationPipe';
 
 @Component({
     selector: 'app-topscores',
@@ -32,15 +32,6 @@ export class TopscoresComponent implements OnInit {
     }
 
     restartGame() {
-        /* MOCK USER */
-        this.player = new Player();
-        this.player.id = 'bd9d0966-f7c2-413b-916b-886418ba5eaa';
-        this.player.displayName = 'Arne Van Bael';
-        this.player.givenName = 'Arne';
-        this.player.surName = null;
-        this.player.sex = 'MALE';
-        /* MOCK USER END */
-        console.log(this.player);
         this.gameService.startGame(this.player).subscribe(
             (res: Game) => {
                 console.log('startgame SUCCESS', res);
