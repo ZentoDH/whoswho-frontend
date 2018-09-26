@@ -18,4 +18,5 @@ export class AuthService {
   get token(): Promise<any> {
     return this._token;
   }
+  
 }

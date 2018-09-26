@@ -5,6 +5,7 @@ import {Player} from '../models/player.model';
 import {environment} from '../../environments/environment';
 import {DataService} from '../services/data.service';
 import {Game} from '../models/game.model';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
     player: Player;
     loading: boolean = false;
 
-    constructor(private router: Router, private gameService: GameService, private data: DataService) {
+    constructor(private router: Router, private gameService: GameService, private globalData: DataService) {
     }
 
     ngOnInit() {
@@ -34,11 +35,12 @@ export class HomeComponent implements OnInit {
 
         console.log(this.player);
 
+        this.loading = true;
+
         this.gameService.startGame(this.player).subscribe(
             (res: Game) => {
                 console.log('startgame SUCCESS', res);
-                this.data.game = res;
-                this.loading = true;
+                this.globalData.game = res;
                 this.router.navigate(['/game']);
             },
             err => {

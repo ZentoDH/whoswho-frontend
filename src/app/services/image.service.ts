@@ -11,7 +11,7 @@ import {AuthService} from './auth.service';
 })
 export class ImageService {
 
-    constructor(private authService: AuthService, private http: HttpClient) {
+    constructor(private authService: AuthService, private http: HttpClient, private msalService: MsalService) {
     }
 
     toDataURL(url, token, callback) {
@@ -30,27 +30,6 @@ export class ImageService {
     }
 
     getImage(userId: string) {
-        let token: any;
-        this.msalService.acquireTokenSilent(['user.read']).then(t => {
-            token = t;
-            console.log(token);
 
-            const url = 'https://graph.microsoft.com/v1.0/users/' + userId + '/photo/$value';
-
-            const headers = {
-                headers: new HttpHeaders({
-                    'Authorization': 'Bearer ' + token,
-                    'ResponseType': 'blob'
-                }),
-                responseType: 'blob' as 'blob'
-            };
-
-            this.toDataURL(url, 'Bearer ' + token, (result) => {
-                const img = new Image(1, 1); // width, height values are optional params
-                img.src = result;
-
-                document.getElementById('mybody').appendChild(img);
-            });
-        });
     }
 }
