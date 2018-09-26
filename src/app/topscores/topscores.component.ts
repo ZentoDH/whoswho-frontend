@@ -1,7 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {TopScoresService} from '../services/topscores.service';
-import {TopScore} from '../models/topScore.model';
+import {Router} from '@angular/router';
+import {Player} from '../models/player.model';
+import {Game} from '../models/game.model';
+import {GameService} from '../services/game.service';
+import {DataService} from '../services/data.service';
 import {AuthService} from '../services/auth.service';
+import {MsalService} from '@azure/msal-angular';
 
 @Component({
     selector: 'app-topscores',
@@ -10,36 +15,42 @@ import {AuthService} from '../services/auth.service';
 })
 export class TopscoresComponent implements OnInit {
     date = new Date();
-    topScores: Array<TopScore>;
-    id = '1';
+    topScores = [];
+    player: Player;
+    loading = false;
 
-    constructor(private topScoreService: TopScoresService) {
+    constructor(private topScoreService: TopScoresService, private authService: AuthService, private router: Router, private gameService: GameService, private data: DataService) {
     }
 
     ngOnInit() {
-        //this.topScores = this.topScoreService.getTopScores();
-        this.topScores = [
-            new TopScore('1', 'Arne', 'Hendrickx', 20, 123123123, 15),
-            new TopScore('2', 'Vincent', 'Hendrickx', 19, 123123123, 15),
-            new TopScore('3', 'Zento', 'Hendrickx', 17, 123123123, 15),
-            new TopScore('4', 'Bram', 'Hendrickx', 16, 123123123, 15),
-            new TopScore('5', 'Jorgi', 'Hendrickx', 12, 123123123, 15),
-            new TopScore('6', 'Jelle', 'Hendrickx', 11, 123123123, 15),
-            new TopScore('7', 'Lode', 'Hendrickx', 10, 123123123, 15),
-            new TopScore('8', 'Lieven', 'Hendrickx', 20, 123123123, 15),
-            new TopScore('9', 'Robbe', 'Hendrickx', 10, 123123123, 15),
-            new TopScore('10', 'Jakkie', 'Hendrickx', 10, 123123123, 15),
-            new TopScore('11', 'Jonathan', 'Hendrickx', 10, 123123123, 15),
-            new TopScore('12', 'Gregory', 'Hendrickx', 10, 123123123, 15),
-            new TopScore('13', 'Ronald', 'Hendrickx', 9, 123123123, 15),
-            new TopScore('14', 'Jan', 'Hendrickx', 9, 123123123, 15),
-            new TopScore('15', 'Piet', 'Hendrickx', 7, 123123123, 15),
-            new TopScore('16', 'Joris', 'Hendrickx', 6, 123123123, 15),
-            new TopScore('17', 'Korneel', 'Hendrickx', 5, 123123123, 15),
-            new TopScore('18', 'Freddy', 'Hendrickx', 4, 123123123, 15),
-            new TopScore('19', 'Fish', 'Hendrickx', 3, 123123123, 15),
-            new TopScore('20', 'Flappie', 'Hendrickx', 1, 123123123, 15),
-        ];
+        this.player = this.authService.currentPlayer;
 
+        this.topScoreService.getTopScores().subscribe(
+            res => {
+                this.topScores = res;
+            });
+    }
+
+    restartGame() {
+        /* MOCK USER */
+        this.player = new Player();
+        this.player.id = 'bd9d0966-f7c2-413b-916b-886418ba5eaa';
+        this.player.displayName = 'Arne Van Bael';
+        this.player.givenName = 'Arne';
+        this.player.surName = null;
+        this.player.sex = 'MALE';
+        /* MOCK USER END */
+        console.log(this.player);
+        this.gameService.startGame(this.player).subscribe(
+            (res: Game) => {
+                console.log('startgame SUCCESS', res);
+                this.data.game = res;
+                this.loading = true;
+                this.router.navigate(['/game']);
+            },
+            err => {
+                console.log('startgame FAIL', err);
+            }
+        );
     }
 }

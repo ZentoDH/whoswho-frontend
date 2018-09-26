@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
 
     startGame() {
         /* MOCK USER */
-        this.player = new Player('bd9d0966-f7c2-413b-916b-886418ba5eaa', 'Arne Van Bael', 'Arne', 'Van Bael', 'MALE');
+        this.player = new Player();
         this.player.id = 'bd9d0966-f7c2-413b-916b-886418ba5eaa';
         this.player.displayName = 'Arne Van Bael';
         this.player.givenName = 'Arne';

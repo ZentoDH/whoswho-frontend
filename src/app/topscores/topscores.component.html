@@ -1,30 +1,40 @@
 <h1>TOPSCORES {{date | date:'MM/yyy'}}</h1>
 
-<mat-grid-list cols="1">
-    <mat-grid-tile>
-        <div id="topscores">
-            <table>
-                <tr *ngFor="let topscore of topScores">
-                    <td>0001.</td>
-                    <ng-container
-                            *ngIf="topscore.personId === id; then currentPlayer; else notCurrentPlayer">
-                    </ng-container>
-                    <ng-template #currentPlayer>
-                            <td  class="currentPlayer">{{ topscore.firstName }} {{ topscore.lastName }}</td>
-                            <td  class="currentPlayer">{{ topscore.score }}/20</td>
-                            <td  class="currentPlayer">({{ topscore.playTimeInMillis }})</td>
-                            <td  class="currentPlayer">x{{ topscore.amountPlayed }}</td>
-                    </ng-template>
-                    <ng-template #notCurrentPlayer>
+<div *ngIf="topScores .length < 0 | async">
+    <span>NO TOPSCORES AVAILABLE</span>
+</div>
+
+<div *ngIf="topScores .length >= 0 ">
+    <mat-grid-list cols="1">
+        <mat-grid-tile>
+            <div id="topscores">
+                <table>
+
+                    <tr *ngFor="let topscore of topScores; index as i">
+                        <td>{{ i+1 }}.</td>
+                        <ng-container
+                                *ngIf="topscore.personId === player.id; then currentPlayer; else notCurrentPlayer">
+                        </ng-container>
+                        <ng-template #currentPlayer>
+                            <td class="currentPlayer">{{ topscore.firstName }} {{ topscore.lastName }}</td>
+                            <td class="currentPlayer">{{ topscore.score }}/20</td>
+                            <td class="currentPlayer">({{ topscore.playTimeInMillis | date: "mm:ss"}})</td>
+                            <td class="currentPlayer">x {{ topscore.amountPlayed }}</td>
+                        </ng-template>
+                        <ng-template #notCurrentPlayer>
                             <td>{{ topscore.firstName }} {{ topscore.lastName }}</td>
                             <td>{{ topscore.score }}/20</td>
-                            <td>({{ topscore.playTimeInMillis }})</td>
-                            <td>x{{ topscore.amountPlayed }}</td>
-                    </ng-template>
-                </tr>
-            </table>
-        </div>
-    </mat-grid-tile>
-</mat-grid-list>
+                            <td>({{ topscore.playTimeInMillis | date: "mm:ss"}})</td>
+                            <td>x {{ topscore.amountPlayed }}</td>
+                        </ng-template>
+                    </tr>
+                </table>
+            </div>
 
-<button>PLAY AGAIN</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+
+<div class="wrapper">
+    <button class="btn" mat-raised-button color="accent" (click)="restartGame()">PLAY AGAIN</button>
+</div>

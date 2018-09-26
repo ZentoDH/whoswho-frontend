@@ -4,13 +4,16 @@ export class TopScore {
         this.firstName = firstName;
         this.lastName = lastName;
         this.score = score;
-        this.playTimeInMillis = playTimeInMillis;
+        const d = new Date(0, 0, 0, 0, 0, 0, 0);
+        d.setSeconds(playTimeInMillis);
+        this.playTimeInMillis = d;
         this.amountPlayed = amountPlayed;
     }
+
     personId: string;
     firstName: string;
     lastName: string;
     score: number;
-    playTimeInMillis: number;
+    playTimeInMillis: Date;
     amountPlayed: number;
-  }
+}
