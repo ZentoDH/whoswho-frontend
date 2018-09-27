@@ -42,8 +42,10 @@ export class HomeComponent implements OnInit {
 
         this.loading = true;
 
+        console.log('0');
         this.gameService.startGame(this.player).subscribe(
             (res: Game) => {
+                console.log('1');
                 console.log('startgame SUCCESS', res);
                 this.globalData.game = res;
                 this.router.navigate(['/game']);

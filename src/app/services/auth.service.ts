@@ -25,6 +25,7 @@ export class AuthService {
                 this.currentPlayer.displayName = tokenInfo.name;
                 this.currentPlayer.givenName = tokenInfo.given_name;
                 this.currentPlayer.surName = tokenInfo.family_name;
+                this.currentPlayer.sex = 'MALE';
 
                 this.globalData.currentUser.next(this.currentPlayer);
             },
