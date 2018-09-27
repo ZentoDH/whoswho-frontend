@@ -9,7 +9,9 @@ import {MatButtonModule, MatToolbarModule, MatMenuModule, MatIconModule, MatGrid
 import {GameComponent} from './game/game.component';
 import {TopscoresComponent} from './topscores/topscores.component';
 import {MsalModule} from '@azure/msal-angular';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
+import {ConvertDurationPipe} from './topscores/convertDurationPipe';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
         AppComponent,
         HomeComponent,
         GameComponent,
-        TopscoresComponent
+        TopscoresComponent,
+        ConvertDurationPipe,
+        HeaderComponent
     ],
     imports: [
         BrowserModule,

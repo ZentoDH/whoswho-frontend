@@ -14,22 +14,22 @@ export class ImageService {
     constructor(private authService: AuthService, private http: HttpClient, private msalService: MsalService) {
     }
 
-    toDataURL(url, token, callback) {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function() {
-            let reader = new FileReader();
-            reader.onloadend = function() {
-                callback(reader.result);
-            }
-            reader.readAsDataURL(xhr.response);
-        };
-        xhr.open('GET', url);
-        xhr.setRequestHeader('Authorization', token);
-        xhr.responseType = 'blob';
-        xhr.send();
-    }
+/*    getImage(userId: string) {
+        this.authService.token.then(t => {
+            let token = t;
+            console.log(token);
 
-    getImage(userId: string) {
+            const url = 'https://graph.microsoft.com/v1.0/users/' + userId + '/photo/$value';
 
-    }
+            const httpOptions = {
+                headers: new HttpHeaders({
+                    'Content-Type': 'image/jpeg',
+                    'Authorization': 'Bearer ' + token,
+                }),
+            };
+
+            const image = this.http.get(url, httpOptions);
+            console.log('Image: ', image);
+        });
+    }*/
 }
