@@ -14,7 +14,7 @@ export class ImageService {
     constructor(private authService: AuthService, private http: HttpClient) {
     }
 
-    getImage(userId: string) {
+/*    getImage(userId: string) {
         this.authService.token.then(t => {
             let token = t;
             console.log(token);
@@ -31,5 +31,5 @@ export class ImageService {
             const image = this.http.get(url, httpOptions);
             console.log('Image: ', image);
         });
-    }
+    }*/
 }
