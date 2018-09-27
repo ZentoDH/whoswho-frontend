@@ -1,13 +1,13 @@
-<mat-grid-list cols="2" rowHeight="1:1">
-  <mat-grid-tile><img width="100%" src="https://cataas.com/cat/gif"/></mat-grid-tile>
-  <mat-grid-tile><img width="100%"src="https://cataas.com/cat/gif"/></mat-grid-tile>
-  <mat-grid-tile><img width="100%"src="https://cataas.com/cat/gif"/></mat-grid-tile>
-  <mat-grid-tile><img width="100%"src="https://cataas.com/cat/gif"/></mat-grid-tile>
+<mat-grid-list cols="2" rowHeight="1:1" *ngIf="isLoading">
+  <mat-grid-tile><img (click)="selectedAnswer(imagesOfPersonsInRound[0].id)" width="100%"[src]="imagesOfPersonsInRound[0]?.imageBase64 "/></mat-grid-tile>
+  <mat-grid-tile><img (click)="selectedAnswer(imagesOfPersonsInRound[1].id)" width="100%"[src]="imagesOfPersonsInRound[1]?.imageBase64 "/></mat-grid-tile>
+  <mat-grid-tile><img (click)="selectedAnswer(imagesOfPersonsInRound[2].id)" width="100%"[src]="imagesOfPersonsInRound[2]?.imageBase64 "/></mat-grid-tile>
+  <mat-grid-tile><img (click)="selectedAnswer(imagesOfPersonsInRound[3].id)" width="100%"[src]="imagesOfPersonsInRound[3]?.imageBase64 "/></mat-grid-tile>
 </mat-grid-list>
 
-<div class="question">
 <p>WHO'S</p>
-<p class="name">[FIRSTNAME, LASTNAME]</p>
+<div class="question">
+  <p class="name">{{rightPerson?.displayName}}</p>
 </div>
 
 <mat-grid-list class="container" cols="2" rowHeight="1:1">

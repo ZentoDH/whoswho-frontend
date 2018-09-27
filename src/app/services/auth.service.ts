@@ -4,7 +4,6 @@ import {MsalService} from '@azure/msal-angular';
 import * as jwt_decode from 'jwt-decode';
 import {DataService} from './data.service';
 
-
 @Injectable({
     providedIn: 'root',
 })

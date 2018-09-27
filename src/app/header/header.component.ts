@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Player} from '../models/player.model';
 import {DataService} from '../services/data.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -11,7 +12,7 @@ import {DataService} from '../services/data.service';
 export class HeaderComponent implements OnInit {
     player:Player;
 
-    constructor(private authService: AuthService, private globalData:DataService) {}
+    constructor(private router: Router, private authService: AuthService, private globalData:DataService) {}
 
 
     ngOnInit() {
@@ -23,5 +24,10 @@ export class HeaderComponent implements OnInit {
     logout() {
         this.authService.logout();
     }
+
+    goHome() {
+        this.router.navigate(['/']);
+    }
+
 
 }
