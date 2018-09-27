@@ -29,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
         MatIconModule,
         MatMenuModule,
         MatGridListModule,
+        HttpClientModule,
         MsalModule.forRoot({
             clientID: 'f993cf0d-9e6d-44b1-80f3-cf760d018618',
             authority: 'https://login.microsoftonline.com/common/',
