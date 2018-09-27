@@ -12,7 +12,6 @@ export class PersonService {
 
   getImageBase64(userId: string): Promise<any> {
     let token: any;
-    let base64data
     this.msalService._oauthData.idToken
     return this.msalService.acquireTokenSilent(['user.read']).then(t => {
       token = t;
