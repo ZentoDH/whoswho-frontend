@@ -22,3 +22,15 @@ mat-toolbar{
    Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
 }
+
+.name-header{
+    flex: 1 1 auto;
+    text-align: right;
+    color: white;
+}
+
+.name-header button{
+    cursor: pointer;
+    border: #ffab40;
+    border-style: solid;
+}

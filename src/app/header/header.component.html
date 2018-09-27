@@ -1,6 +1,13 @@
 <mat-toolbar color="primary">
-  <span class="title">WHO<span class="tic">'</span>S <img src="../assets/images/logo-axxes.png" class="axxes-logo" alt="axxes"></span><span>{{player?.givenName}}</span>
-  <button (click)="logout()">Log out</button>
+    <div style="float: left">
+        <span class="title">WHO<span class="tic">'</span>S <img src="../assets/images/logo-axxes.png" class="axxes-logo" alt="axxes"></span>
+    </div>
+
+    <div class="name-header" style="float: right">
+        <button class="name" mat-button [matMenuTriggerFor]="menu">Welcome, <span>{{player?.givenName}}</span></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logout()">Log out</button>
+        </mat-menu>
+    </div>
+    <div style="clear: both"></div>
 </mat-toolbar>
-
-
