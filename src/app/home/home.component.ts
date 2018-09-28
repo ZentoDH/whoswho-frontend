@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
         this.player.sex = 'MALE';
         MOCK USER END */
 
-        console.log(this.player);
+        console.log("player that is loaded into the startgame in gameservice",this.player);
 
         this.loading = true;
 

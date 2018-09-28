@@ -1,0 +1,12 @@
+<div class="endscreen">
+  <p>NEW SCORE</p>
+  <p>{{endscreenData?.currentScore.score}}</p>
+  <p>TOP SCORE</p>
+  <p>{{endscreenData?.previousBestScore.score}}</p>
+  <div class="wrapper">
+    <button class="btn" mat-raised-button color="accent" (click)="topScores()">Topscores</button>
+  </div>
+  <div class="wrapper">
+    <button class="btn" mat-raised-button color="accent" (click)="backToHome()">Back to home</button>
+  </div>
+</div>

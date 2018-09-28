@@ -10,6 +10,7 @@ import { Person } from '../models/person.model';
 import { Round } from '../models/round.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { GameService } from '../services/game.service';
 
 @Component({
     selector: 'app-game',
@@ -29,18 +30,25 @@ export class GameComponent implements OnInit {
     imagesOfPersonsInRound: object[] = [];
     isLoading: boolean = true;
 
-    constructor(private globalData: DataService, private personService: PersonService, private router:Router, private sanitizer: DomSanitizer) {
+    constructor(private globalData: DataService, private gameService: GameService, private personService: PersonService, private router:Router, private sanitizer: DomSanitizer) {
     }
 
     ngOnInit() {
         // console.log('TEST INPUT', this.globalData.game);
         this.game = this.globalData.game;
+        
         if (this.game !== undefined) {
             this.round = this.game.rounds[this.roundCount];
             this.buildRound();
         }else{
             this.router.navigate(['']);
         }
+
+        //set begin time
+        var d  = new Date();
+        let formatDateTime = d.getFullYear() + "-" + ("00" + (d.getMonth() + 1)).slice(-2) + "-" + ("00" + d.getDate()).slice(-2) + " " + ("00" + d.getHours()).slice(-2) + ":" + ("00" + d.getMinutes()).slice(-2) + ":" + ("00" + d.getSeconds()).slice(-2);
+
+        this.game.startTime = formatDateTime;
     }
 
     buildRound() {
@@ -59,6 +67,7 @@ export class GameComponent implements OnInit {
     }
 
     selectedAnswer(id: string) {
+        this.game.rounds[this.roundCount].guessedPersonId = id;
         if (this.rightPerson.id === id) {
             console.log("correct");
             this.score++;
@@ -83,10 +92,22 @@ export class GameComponent implements OnInit {
     }
 
     endGame(){
-        this.router.navigate(['']);
-    }
+        
+        //set end time
+        var d  = new Date();
+        let formatDateTime = d.getFullYear() + "-" + ("00" + (d.getMonth() + 1)).slice(-2) + "-" + ("00" + d.getDate()).slice(-2) + " " + ("00" + d.getHours()).slice(-2) + ":" + ("00" + d.getMinutes()).slice(-2) + ":" + ("00" + d.getSeconds()).slice(-2);
 
-    writeScoresToDB(){
+        this.game.endTime = formatDateTime;
+
+        console.log("POSTING GAME", this.game);
+        this.gameService.postScore(this.game).subscribe(
+            (res:any) => {
+                console.log("RETURNED FROM POST", res)
+                this.globalData.endscreenData = res;
+                this.router.navigate(['/endscreen']);
+            },
+            err => console.log(err)
+        );
         
     }
 }

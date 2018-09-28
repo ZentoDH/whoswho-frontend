@@ -1,0 +1,13 @@
+.endscreen{
+    text-align: center;
+}
+.btn{
+    width: 200px;
+    color:white;
+    font-weight: bold;
+}
+.wrapper{
+    width: 100%;
+    text-align: center;
+    margin-top: 5%;
+}

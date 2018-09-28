@@ -46,4 +46,8 @@ export class AuthService {
     logout() {
         this.msalService.logout();
     }
+
+    getCurrentPlayer(){
+        return this.currentPlayer;
+    }
 }

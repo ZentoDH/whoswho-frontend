@@ -8,6 +8,6 @@ export class Game {
     rounds: Array<Round>;
 
     score: number;
-    startTime: Date;
-    endTime: Date;
+    startTime: string;
+    endTime: string;
   }

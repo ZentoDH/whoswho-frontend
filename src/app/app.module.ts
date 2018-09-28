@@ -12,6 +12,7 @@ import {MsalModule} from '@azure/msal-angular';
 import { HttpClientModule } from '@angular/common/http';
 import {ConvertDurationPipe} from './topscores/convertDurationPipe';
 import { HeaderComponent } from './header/header.component';
+import { EndscreenComponent } from './endscreen/endscreen.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HeaderComponent } from './header/header.component';
         GameComponent,
         TopscoresComponent,
         ConvertDurationPipe,
-        HeaderComponent
+        HeaderComponent,
+        EndscreenComponent
     ],
     imports: [
         BrowserModule,
