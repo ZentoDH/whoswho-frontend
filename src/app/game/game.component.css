@@ -106,7 +106,8 @@ p.error {
     transition: .5s ease;
 }
 
-.container:hover .overlay {
+.overlay{
+    visibility: hidden;
     opacity: 1;
 }
 

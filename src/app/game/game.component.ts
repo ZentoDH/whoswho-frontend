@@ -40,7 +40,7 @@ export class GameComponent implements OnInit {
         if (this.game !== undefined) {
             this.round = this.game.rounds[this.roundCount];
             this.buildRound();
-        }else{
+        } else {
             this.router.navigate(['']);
         }
 
@@ -58,35 +58,52 @@ export class GameComponent implements OnInit {
         //getImages
         this.round.persons.forEach(person => {
             this.personService.getImageBase64(person.id).then(imageBase64 => {
-                this.imagesOfPersonsInRound.push({ "id": person.id, "imageBase64": this.sanitizer.bypassSecurityTrustResourceUrl(imageBase64) });
-            },
+                    this.imagesOfPersonsInRound.push({
+                        'id': person.id,
+                        'imageBase64': this.sanitizer.bypassSecurityTrustResourceUrl(imageBase64)
+                    });
+                },
                 err => {
-                    this.imagesOfPersonsInRound.push({ "id": person.id, "imageBase64": "https://cataas.com/cat/gif" });
-                }).then(res => { console.log(this.imagesOfPersonsInRound); this.isLoading = true });
+                    this.imagesOfPersonsInRound.push({'id': person.id, 'imageBase64': 'https://cataas.com/cat/gif'});
+                }).then(res => {
+                console.log(this.imagesOfPersonsInRound);
+                this.isLoading = true;
+            });
         });
     }
 
     selectedAnswer(id: string) {
         this.game.rounds[this.roundCount].guessedPersonId = id;
+        let self = this;
         if (this.rightPerson.id === id) {
-            console.log("correct");
+            console.log('correct');
             this.score++;
-            this.nextRound();
         } else {
-            console.log("fout");
-            this.nextRound();
+            console.log('fout');
         }
+
+        let clickedElement = document.getElementsByClassName(id) as HTMLCollectionOf<HTMLElement>;
+        if (clickedElement.length != 0) {
+            clickedElement[0].style.visibility = 'visible';
+        }
+
+        setTimeout(function () {
+            clickedElement[0].style.visibility = 'hidden';
+            setTimeout(function () {
+                self.nextRound();
+            }, 600);
+        }, 1000);
     }
 
     nextRound() {
-        console.log("current score", this.score);
+        console.log('current score', this.score);
         this.roundCount++;
 
         //check if last round reached / end game
-        if(this.roundCount < this.game.rounds.length){
+        if (this.roundCount < this.game.rounds.length) {
             this.round = this.game.rounds[this.roundCount];
             this.buildRound();
-        }else{
+        } else {
             this.endGame();
         }
     }
